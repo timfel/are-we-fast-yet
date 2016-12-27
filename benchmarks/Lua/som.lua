@@ -175,8 +175,12 @@ function Vector:sort_range (i, j, fn)
 
     -- i.e., should di precede dj?
     if not fn(di, dj) then
-        storage[i], storage[j] = storage[j], storage[i]
-        di, dj = dj, di
+        local tmp = storage[i]
+        storage[i] = storage[j]
+        storage[j] = tmp
+        local tt = di
+        di = dj
+        dj = tt
     end
 
     -- NOTE: For DeltaBlue, this is never reached.
