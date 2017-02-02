@@ -18,6 +18,8 @@ $SCRIPT_PATH/build-som.sh
 $SCRIPT_PATH/build-somns.sh
 $SCRIPT_PATH/build-graal.sh
 $SCRIPT_PATH/build-pharo.sh
+$SCRIPT_PATH/build-squeak.sh
+$SCRIPT_PATH/build-rsqueak.sh
 
 if [ -e "$GRAALVM_ARCHIVE" ]; then
   mkdir -p $SCRIPT_PATH/graalvm
