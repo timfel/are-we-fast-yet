@@ -51,5 +51,5 @@ install:
   - if [ "$LANG" = "som" ] || [ "$LANG" = "somns" ]; then jdk_switcher use oraclejdk8; fi
 
 script:
-  - implementations/build-$LANG.sh && rebench test.conf test-$LANG
+  - implementations/build-$LANG.sh && rebench -q test.conf test-$LANG
   - implementations/build-$LANG.sh style
