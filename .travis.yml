@@ -32,6 +32,8 @@ matrix:
     - env: LANG=rsqueak
       language: smalltalk
       smalltalk: Squeak-5.1
+      dist: trusty
+      sudo: required
       addons:
         apt:
           packages:
@@ -42,11 +44,22 @@ matrix:
     - env: LANG=ruby
       language: ruby
       rvm: 2.3.1
+    - env: LANG=trufflesqueak
+      language: smalltalk
+      smalltalk: Squeak-5.1
+      addons:
+        apt:
+          packages:
+            - python-scipy
+            - python-yaml
+            - libssl1.0.0
+
 
 install:
   - pip install --user ReBench
   - if [ "$LANG" = "ruby" ]; then gem install rubocop;   fi
   - if [ "$LANG" = "js" ];   then npm install -g jshint; fi
+  - if [ "$LANG" = "trufflesqueak" ]; then jdk_switcher use oraclejdk8; fi
 
 script:
   - implementations/build-$LANG.sh && rebench test.conf test-$LANG

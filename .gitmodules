@@ -22,3 +22,6 @@
 [submodule "implementations/RSqueak"]
 	path = implementations/RSqueak
 	url = https://github.com/HPI-SWA-Lab/RSqueak.git
+[submodule "implementations/TruffleSqueak"]
+	path = implementations/TruffleSqueak
+	url = https://github.com/timfel/trufflesqueak.git

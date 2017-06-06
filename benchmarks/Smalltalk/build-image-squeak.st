@@ -27,8 +27,18 @@ Time class methodDict at: #primUTCMicrosecondsClock put: (Time class >> #utcMicr
 SmallInteger methodDict at: #'&' put: (SmallInteger >> #bitAnd:).
 SmallInteger methodDict at: #'%' put: (SmallInteger >> #\\).
 
+Integer compile: 'awfy
+    ^ Harness new run: Smalltalk arguments' classified: '*SomLoader-TruffleSqueak'.
+
 Smalltalk class compile: 'exit: code
     ^ Smalltalk quitPrimitive' classified: '*SomLoader'.
+
+FileStream class compile: 'voidStdioHandlesForTruffleSqueak
+    StdioFiles := Array new: 3.
+    TheStdioHandles
+        at: 1 put: 0;
+        at: 2 put: 1;
+        at: 3 put: 2.' classified: '*SomLoader-TruffleSqueak'.
 
 Smalltalk at: #DiskStore put: FileDirectory.
 FileDirectory class methodDict at: #delimiter put: (FileDirectory class >> #slash).
@@ -49,9 +59,11 @@ FileStream stdout nextPutAll: '== Save and Exit'; cr.
 PreferenceWizardMorph allInstances do: #delete.
 SystemWindow allSubInstances do: #delete.
 
+FileStream voidStdioHandlesForTruffleSqueak.
 Smalltalk saveAs: 'AWFY'] on: Error do: [:e |
     FileStream stdout nextPutAll: e printString.
 ].
 
 Project current addDeferredUIMessage: [
+  FileStream voidStdioHandlesForTruffleSqueak.
   Smalltalk snapshot: true andQuit: true].
